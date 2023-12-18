@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Judul Halaman -->
+  <title>Orbit Future Academy</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icon -->
+  <link rel="shortcut icon" href="../static/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="../static/css/client_side.css" type="text/css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    table,
+    th,
+    td {
+      border: 0px solid black;
+    }
+  </style>
+  <!-- JavaScript -->
+  <script src="../static/js/jquery_3.6.0.min.js"></script>
+  <script src="../static/js/bootstrap_3.4.1.min.js"></script>
+
+</head>
+
+<body id="halamanku" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+      <!-- Logo -->
+      <div class="navbar-header">
+        <img src="../static/images/orbit_logo.jpg" alt="Orbit Logo" width="50" height="50" align="left">
+        <a class="navbar-brand" href="#halamanku">&#160; Orbit Future Academy</a>
+      </div>
+
+      <!-- Daftar Halaman -->
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#informasi">INFORMASI</a></li>
+          <li><a href="#aplikasi">APLIKASI</a></li>
+          <li><a href="#anggotaKelompok">ANGGOTA KELOMPOK</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  </div>
+  </div>
+  </nav>
+
+  <!-- Bagian Halaman (Informasi) -->
+  <div id="informasi" class="container-fluid">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-6">
+        <!-- Deskripsi Aplikasi -->
+        <h2>ITC</h2>
+        <h4>Sistem Klasifikasi Sampah</h4><br>
+        <p style="text-align: justify;text-justify: inter-word;">
+          <b>Intelligent Trash Classification (ITC)</b> menghadirkan solusi inovatif dalam pengelolaan sampah,
+          memanfaatkan model klasifikasi yang cerdas untuk meningkatkan <b>efisiensi</b> dalam proses pemilahan. Proyek
+          ini mendasarkan diri pada ide pengembangan model yang canggih, dimulai dengan perluasan dataset pelatihan yang
+          mencakup berbagai sampel gambar sampah. Dengan mengadopsi teknik <b>transfer learning</b> dan
+          <b>augmentasi</b> data, ITC tidak hanya mengoptimalkan proses pelatihan tetapi juga meningkatkan kemampuan
+          model dalam mengenali dan mengklasifikasikan sampah dengan <b>akurasi tinggi</b>. ITC yang dimanfaatkan oleh
+          Sistem Klasifikasi Sampah ini dapat memprocess input data berupa gambar, video, maupun melalui kamera secara
+          realtime.
+        </p>
+        <br>
+
+        <!-- Tombol Mulai -->
+        <nav id="navgo" class="navbar" style="background-color:#ffffff;z-index: 0;">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="btn btn-default btn-lg" href="#aplikasi" style="background-color:#28ace5">Mulai</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="col-sm-6">
+        <br>
+        <br>
+        <!-- Gambar Deskripsi Aplikasi -->
+        <img src="../static/images/OIP.jpeg" width="100%"></img>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div id="aplikasi" class="container-fluid text-center row slideanim" style="background-color: #ececec;">
+    <div>
+      <h2 class="slideanim">Aplikasi</h2>
+      <div class="row slideanim">
+        <h3>Upload Gambar atau Video</h1>
+          <table style="width: 100%;text-align: center;">
+            <tr style="padding: 5px;">
+              <td class="col-sm-4"></td>
+              <td class="col-sm-4" style="padding: 5px;">
+                <form class="form-signin" method=post enctype=multipart/form-data>
+                  <img style="width: 500px;" src="../static/images/result_89.jpg" alt="">
+                  <input type="file" name="file" class="form-control form-control-lg" id="inputfile">
+                  <br />
+                  <button class="btn btn-primary btn-lg" type="submit">Upload</button>
+              </td>
+              <td class="col-sm-4"></td>
+            </tr>
+          </table>
+      </div>
+      <div class="slideanim">
+        <h3>Gunakan Kamera</h3>
+        <img id="bg" src="{{ url_for('video_feed') }}">
+        <br>
+        <br>
+        <a href="/opencam" type="button" class="btn btn-primary btn-lg">Camera</a>
+      </div>
+      <br>
+    </div>
+  </div>
+
+  <!-- Bagian Halaman (Anggota Kelompok) -->
+  <div id="anggotaKelompok" class="container-fluid text-center slideanim">
+    <br>
+    <h2>ANGGOTA KELOMPOK</h2>
+    <br>
+    <div class="row slideanim">
+      <div class="col-sm-4" style="background-color: #4d4d4d;">
+        <br>
+        <br>
+        <br>
+        <span class="glyphicon glyphicon-user logo-small"></span>
+        <h4>ML Engineer: Aufa Yuliansyah</h4>
+        <p>Politeknik Negeri Padang</p>
+      </div>
+      <div class="col-sm-4" style="background-color: #dfdddd;">
+        <br>
+        <span><img src="../static/images/WhatsApp Image 2023-12-06 at 20.36.55_5a9b0d45.jpg" style="width: 100px;border-radius: 50%;fill: none;" ></span>
+        <h4>Frontend Engineer: M. Asadel Gerty</h4>
+        <p>Universitas Sriwijaya</p>
+      </div>
+      <div class="col-sm-4" style="background-color: #4d4d4d;">
+        <br>
+        <br>
+        <br>
+        <span class="glyphicon glyphicon-user logo-small"></span>
+        <h4>Backend Engineer: Francessco Pangabean</h4>
+        <p>STMIK Amik Riau</p>
+      </div>
+    </div>
+    <br>
+    <div class="row slideanim">
+      <div class="col-sm-4" style="background-color: #dfdddd;">
+        <br>
+        <br>
+        <br>
+        <span><img src="../static/images/WhatsApp Image 2023-12-06 at 20.42.37_759cc91f.jpg" style="width: 100px;border-radius: 50%;fill: none;" ></span>
+        <h4>Data Engineer: Safitri</h4>
+        <p>Universitas PGRI Palembang</p>
+      </div>
+      <div class="col-sm-4" style="background-color: #4d4d4d;">
+        <br>
+        <br>
+        <br>
+        <span><img src="../static/images/WhatsApp Image 2023-12-06 at 20.40.05_3ec3d31f.jpg" style="width: 100px;border-radius: 50%;fill: none;" ></span>
+        <h4>Technical Writter: Ulfiah Yulianti</h4>
+        <p>Universitas PGRI Palembang</p>
+      </div>
+      <div class="col-sm-4" style="background-color: #dfdddd;">
+        <br>
+        <br>
+        <br>
+        <span class="glyphicon glyphicon-user logo-small"></span>
+        <h4>UI/UX Designer: Tri Agus</h4>
+        <p>Universitas Sriwijaya</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center">
+    <a href="#halamanku" title="To Top">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+    <p>Orbit Future Academy <br> <a href="https://orbitfutureacademy.id/">orbitfutureacademy.id</a></p>
+  </footer>
+
+  <!-- JavaScript untuk Animasi Scroll dan Prediksi Model -->
+  <!-- <script src="../static/js/client_side.js"></script> -->
+  <script src={{ url_for('static', filename='/js/client_side.js' ) }}></script>
+  <script>
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        $(".slideanim").each(function () {
+          var pos = $(this).offset().top;
+          var winTop = $(window).scrollTop();
+          if (pos < winTop + 600) {
+            $(this).addClass("slide");
+          }
+        });
+      });
+
+    })
+  </script>
+
+  <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+  <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $('#inputfile').bind('change', function () {
+      let fileSize = this.files[0].size / 1024 / 1024; // this gives in MB
+      if (fileSize > 30) {
+        $("#inputfile").val(null);
+        alert('file is too big. images more than 1MB are not allowed')
+        return
+      }
+
+      let ext = $('#inputfile').val().split('.').pop().toLowerCase();
+      if ($.inArray(ext, ['jpg', 'jpeg', 'mp4']) == -1) {
+        $("#inputfile").val(null);
+        alert('only jpeg/jpg files are allowed!');
+      }
+    });
+  </script>
+</body>
+
+</html>
