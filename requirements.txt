@@ -4,4 +4,4 @@
 ultralytics
 
 # Streamlit -----------------------------------
-streamlit
+streamlit-webrtc
