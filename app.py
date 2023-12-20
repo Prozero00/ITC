@@ -7,12 +7,16 @@ import time
 from collections import Counter
 import json
 import pandas as pd
+import mediapipe as mp
 from model_utils import get_yolo, color_picker_fn, get_system_stat
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
+import av
+
 
 st.sidebar.title('Settings')
 st.title('Sistem Klasifikasi Sampah')
-sample_img = cv2.imread('OIP.jpeg')
-FRAME_WINDOW = st.image(sample_img, channels='BGR', width = 640)
+sample_img = cv2.imread('result_89 (1).jpg')
+FRAME_WINDOW = st.image(sample_img, channels='BGR')
 cap = None
 p_time = 0
 
@@ -22,6 +26,37 @@ model = torch.hub.load('.', 'custom', path=path_model_file, source='local',  for
 
 class_labels = model.names
 
+cls_lbl = {
+    0: "battery",
+    1: "biological",
+    2: "brown-glass",
+    3: "cardboard",
+    4: "clothes",
+    5: "green-glass",
+    6: "metal",
+    7: "paper",
+    8: "plastic",
+    9: "shoes",
+    10: "trash",
+    11: "white-glass",
+}
+
+def draw_bounding_boxes(pred_tensor, result):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    fontScale = 0.7
+    size_of_tensor = list(pred_tensor.size())
+    rows = size_of_tensor[0]
+    for i in range(0, rows):
+        cv2.rectangle(result, (int(pred_tensor[i,0].item()), int(pred_tensor[i,1].item())), 
+        (int(pred_tensor[i,2].item()), int(pred_tensor[i,3].item())), (0, 0, 255), 2)
+
+        text = cls_lbl[int(pred_tensor[i,5].item())] +" " + str(round(pred_tensor[i,4].item(), 2))
+
+        image = cv2.putText(result, text, (int(pred_tensor[i,0].item())+5, int(pred_tensor[i,1].item())), 
+        font, fontScale, (0, 0, 255), 2)
+        
+    return result
+
         # device options
 if torch.cuda.is_available():
     device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda'], disabled=False, index=0)
@@ -29,16 +64,30 @@ else:
     device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda'], disabled=True, index=0)
 
 options = st.sidebar.radio(
-        'Options:', ( 'Image', 'Video', 'Webcam'), index=1)
+        'Options:', ('Webcam', 'Image', 'Video'), index=0)
 
 # Web-cam
 if options == 'Webcam':
-    cam_options = st.sidebar.selectbox('Webcam Channel',
-                                        ('Select Channel', '0', '1', '2', '3'))
-    
-    if not cam_options == 'Select Channel':
-        pred = st.checkbox('Predict Using YOLOv5')
-        cap = cv2.VideoCapture(int(cam_options))
+    class VideoProcessor:
+        def recv(self, frame):
+            img = frame.to_ndarray(format="bgr24")
+            prediction = model(img)
+            print(prediction)
+            result_img = draw_bounding_boxes(prediction.xyxy[0], img)
+            #return img
+            return av.VideoFrame.from_ndarray(result_img, format="bgr24")
+
+    RTC_CONFIGURATION = RTCConfiguration(
+    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
+    webrtc_ctx = webrtc_streamer(
+        key="WYH",
+        mode=WebRtcMode.SENDRECV,
+        rtc_configuration=RTC_CONFIGURATION,
+        media_stream_constraints={"video": True, "audio": False},
+        video_processor_factory=VideoProcessor,
+        async_processing=True,
+    )
+
 
 confidence = st.sidebar.slider(
         'Detection Confidence', min_value=0.0, max_value=1.0, value=0.25)
@@ -48,12 +97,6 @@ draw_thick = st.sidebar.slider(
     max_value=20, value=3
     )
 
-color_pick_list = []
-for i in range(len(class_labels)):
-    classname = class_labels[i]
-    color = color_picker_fn(classname, i)
-    color_pick_list.append(color)
-
 if options == 'Image':
     upload_img_file = st.sidebar.file_uploader('Upload Image', type=['jpg', 'jpeg', 'png'])
 
@@ -62,11 +105,11 @@ if options == 'Image':
         file_bytes = np.asarray(
             bytearray(upload_img_file.read()), dtype=np.uint8)
         img = cv2.imdecode(file_bytes, 1)
-        FRAME_WINDOW.image(img, channels='BGR', width=640)
+        FRAME_WINDOW.image(img, channels='BGR')
 
         if pred:
             img, current_no_class = get_yolo(img, model, confidence, color_pick_list, draw_thick)
-            FRAME_WINDOW.image(img, channels='BGR', width=640)
+            FRAME_WINDOW.image(img, channels='BGR')
 
             # Current number of classes
             class_fq = dict(Counter(i for sub in current_no_class for i in set(sub)))
@@ -90,6 +133,12 @@ if options == 'Video':
         tfile = tempfile.NamedTemporaryFile(delete=False)
         tfile.write(upload_video_file.read())
         cap = cv2.VideoCapture(tfile.name)
+
+color_pick_list = []
+for i in range(len(class_labels)):
+    classname = class_labels[i]
+    color = color_picker_fn(classname, i)
+    color_pick_list.append(color)
 
 if (cap != None) and pred:
     stframe1 = st.empty()
