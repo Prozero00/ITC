@@ -7,7 +7,6 @@ import time
 from collections import Counter
 import json
 import pandas as pd
-import mediapipe as mp
 from model_utils import get_yolo, color_picker_fn, get_system_stat
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 import av
