@@ -87,19 +87,20 @@ if options == 'Webcam':
         async_processing=True,
     )
 
-color_pick_list = []
-for i in range(len(class_labels)):
-    classname = class_labels[i]
-    color = color_picker_fn(classname, i)
-    color_pick_list.append(color)
-
-confidence = st.sidebar.slider(
-        'Detection Confidence', min_value=0.0, max_value=1.0, value=0.25)
-
-draw_thick = st.sidebar.slider(
-    'Draw Thickness:', min_value=1,
-    max_value=20, value=3
-    )
+if options != 'Webcam':
+    color_pick_list = []
+    for i in range(len(class_labels)):
+        classname = class_labels[i]
+        color = color_picker_fn(classname, i)
+        color_pick_list.append(color)
+    
+    confidence = st.sidebar.slider(
+            'Detection Confidence', min_value=0.0, max_value=1.0, value=0.25)
+    
+    draw_thick = st.sidebar.slider(
+        'Draw Thickness:', min_value=1,
+        max_value=20, value=3
+        )
 
 if options == 'Image':
     upload_img_file = st.sidebar.file_uploader('Upload Image', type=['jpg', 'jpeg', 'png'])
