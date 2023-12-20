@@ -87,6 +87,11 @@ if options == 'Webcam':
         async_processing=True,
     )
 
+color_pick_list = []
+for i in range(len(class_labels)):
+    classname = class_labels[i]
+    color = color_picker_fn(classname, i)
+    color_pick_list.append(color)
 
 confidence = st.sidebar.slider(
         'Detection Confidence', min_value=0.0, max_value=1.0, value=0.25)
@@ -132,12 +137,6 @@ if options == 'Video':
         tfile = tempfile.NamedTemporaryFile(delete=False)
         tfile.write(upload_video_file.read())
         cap = cv2.VideoCapture(tfile.name)
-
-color_pick_list = []
-for i in range(len(class_labels)):
-    classname = class_labels[i]
-    color = color_picker_fn(classname, i)
-    color_pick_list.append(color)
 
 if (cap != None) and pred:
     stframe1 = st.empty()
