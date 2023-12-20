@@ -63,7 +63,7 @@ else:
     device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda'], disabled=True, index=0)
 
 options = st.sidebar.radio(
-        'Options:', ('Webcam', 'Image', 'Video'), index=0)
+        'Options:', ('Image', 'Video', 'Webcam'), index=0)
 
 # Web-cam
 if options == 'Webcam':
